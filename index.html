@@ -15,8 +15,10 @@
         <div class="title">
             <h1>TODO List</h1>
         </div>
-        <div class="task-text">
-            <input type="text" placeholder="Add a new task">
+        <div>
+            <form method="POST" class="task-text">
+                <input type="text" id="text" placeholder="Add a new task">
+            </form>
         </div>
         
         <div class="controls">
@@ -27,7 +29,7 @@
             </div>
 
             <div>
-                <button class="clear-btn">Clear All</button>
+                <button id="clear-btn" class="clear-btn">Clear All</button>
             </div>
 
         </div>
@@ -42,22 +44,18 @@
                     <i class="uil uil-trash"></i>
                 </div>
             </li>
-
             <li class="task">
                 <div class="d-task">
                     <input type="checkbox" id="1">
                     <p>Puto el que lee</p>
                 </div>
                 <div>
-                    <i class="uil uil-pen task-btn"></i>
-                    <i class="uil uil-trash"></i>
+                    <i id="edit" class="uil uil-pen task-btn"></i>
+                    <i id="trash" class="uil uil-trash"></i>
                 </div>
             </li>
-
-
         </ul>
     </div>
-    
 </body>
 </html>
 
