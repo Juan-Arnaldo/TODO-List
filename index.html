@@ -16,14 +16,14 @@
             <h1>TODO List</h1>
         </div>
         <div>
-            <form method="POST" class="task-text">
+            <form class="task-text">
                 <input type="text" id="text" placeholder="Add a new task">
             </form>
         </div>
         
         <div class="controls">
             <div class="filters">
-                <span id="all" class="active"> All </span>
+                <span id="all" class="active">All</span>
                 <span id="pending"> Pending </span>
                 <span id="completed"> Completed </span>
             </div>
@@ -33,29 +33,22 @@
             </div>
 
         </div>
-        <ul class="task-box">
+        <ul id="list" class="task-box">
             <li class="task">
                 <div class="d-task">
                     <input type="checkbox" id="1">
                     <p>Finish the university</p>
                 </div>
                 <div class="d-task-btn">
-                    <i class="uil uil-pen task-btn"></i>
-                    <i class="uil uil-trash"></i>
-                </div>
-            </li>
-            <li class="task">
-                <div class="d-task">
-                    <input type="checkbox" id="1">
-                    <p>Puto el que lee</p>
-                </div>
-                <div>
-                    <i id="edit" class="uil uil-pen task-btn"></i>
-                    <i id="trash" class="uil uil-trash"></i>
+                    <i id="edit-btn" class="uil uil-pen task-btn"></i>
+                    <i id="trash-btn" class="uil uil-trash task-trash"></i>
                 </div>
             </li>
         </ul>
     </div>
+
+    <script src="./app.js"></script>
+
 </body>
 </html>
 

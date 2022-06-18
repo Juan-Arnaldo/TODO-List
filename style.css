@@ -30,6 +30,7 @@ body{
 
 .task-text{
     height: 40px;
+    cursor: auto;
 }
 
 .task-text input {
@@ -41,6 +42,7 @@ body{
     border-radius: 5px;
     border: 1px solid grey;
     padding: 0 0 0 15px;
+    cursor: auto;
 }
 
 .controls, .task{
@@ -94,7 +96,6 @@ body{
 
 .d-task input{
     margin-right: 10px;
-    cursor: pointer;
 }
 
 .task-btn{
