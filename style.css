@@ -105,3 +105,8 @@ body{
 .d-task-btn{
     cursor: pointer;
 }
+
+.task-checked {
+    text-decoration: line-through;
+    color: rgba(128, 128, 128, 0.3);
+}
