@@ -1,7 +1,9 @@
 const newTask = document.getElementById('text');
 const list = document.getElementById('list');
-const deleteAll = document.getElementById('clear-btn');
-const checkbox = document.getElementById('1');
+const btnDelete = document.getElementById('clear-btn');
+const btnAll = document.getElementById('all');
+const btnPending = document.getElementById('pending');
+const btnCompleted = document.getElementById('completed');
 
 let array = [];
 
@@ -14,12 +16,7 @@ document.addEventListener('DOMContentLoaded', e => {
     }
 })
 
-function loadLS () {
-    if(localStorage.getItem('tasks')){
-        array = JSON.parse(localStorage.getItem('tasks'));
-    }
-}
-
+//Event for new Task
 newTask.addEventListener('keypress', e => {
     const text = newTask.value;
 
@@ -27,25 +24,35 @@ newTask.addEventListener('keypress', e => {
         e.preventDefault();
         newTask.value = ''
 
-        newObj(text, array);
+        newObj(text);
         saveLS(array);
     }
 })
 
+//Event for Pending
+btnPending.addEventListener('click', e => {
+    activate(btnPending);
+    showPending();
+})
 
+//Event for Completed
+btnCompleted.addEventListener('click', e => {
+    activate(btnCompleted);
+    showCompleted();
+})
 
-function saveLS (array) {
-    localStorage.setItem('tasks', JSON.stringify(array));
-}
+//Event for All
+btnAll.addEventListener('click', e => {
+    activate(btnAll);
+    showAll();
+})
 
-function newObj(text, array) {
-    let i;
-    if(array.length === 0){
-        i = 1;
-    }else{
-        i = array.length + 1;
-    }
+//Event for Remove
+btnDelete.addEventListener('click', e => removeAll())
 
+//Function to create new object
+function newObj(text) {
+    let i = Date.now();
     const obj = {
         id : i,
         validate : false,
@@ -74,12 +81,17 @@ function newHTML (text, id) {
     input.type = "checkbox";
     input.setAttribute('id', id);
     div.appendChild(input);
-
+    if(array[array.findIndex(e => e.id === id)].validate === true){
+        input.checked = true;
+    }
 
     //Create P
     const p = document.createElement('p');
     p.innerText = text;
     div.appendChild(p);
+    if(array[array.findIndex(e => e.id === id)].validate === true){
+        p.classList.add('task-checked');
+    }
 
     input.addEventListener('click', e => {
         check(input, p);
@@ -113,6 +125,19 @@ function newHTML (text, id) {
     
 }
 
+//Load the content in Local Storage
+function loadLS () {
+    if(localStorage.getItem('tasks')){
+        array = JSON.parse(localStorage.getItem('tasks'));
+    }
+}
+
+//Save the content in Local Storage
+function saveLS (array) {
+    localStorage.setItem('tasks', JSON.stringify(array));
+}
+
+//Function to edit
 function edit(aux, text, item) {
     text.innerText = '';
     const input = document.createElement('input');
@@ -131,12 +156,12 @@ function edit(aux, text, item) {
 
         if(id >= 0){
             array[id].text = text.textContent;
-            console.log('entro');
             saveLS(array);
         }
     })
 }
 
+//Function to Remove 
 function remove(item) {
     item.remove()
 
@@ -148,7 +173,7 @@ function remove(item) {
     }
 
 }
-
+//Function to Check
 function check(item, text) {
     const id = array.findIndex(e => e.id == item.id);
 
@@ -158,6 +183,55 @@ function check(item, text) {
     }else{
         array[id].validate = true
         text.classList.add('task-checked')
-        item.chec
     }
+    saveLS(array)
+    
+}
+
+//Function to view pending task
+function showPending() {
+    const pending = array.filter(e => e.validate === false)
+    
+    while(list.firstChild){
+        list.removeChild(list.lastChild);
+    }
+
+    pending.forEach(e => newHTML(e.text, e.id));
+} 
+
+//Function to view Completed task
+function showCompleted() {
+    const completed = array.filter(e => e.validate)
+    
+    while(list.firstChild){
+        list.removeChild(list.lastChild);
+    }
+
+    completed.forEach(e => newHTML(e.text, e.id));
+}
+
+//Function to view All task
+function showAll() {
+    while(list.firstChild){
+        list.removeChild(list.lastChild);
+    }
+
+    array.forEach(e => newHTML(e.text, e.id));
+}
+
+//Function to activate
+function activate(item) {
+    const activate = document.querySelector('.active');
+    activate.classList.remove('active');
+    item.classList.add('active');
+}
+
+//Function to remove all 
+function removeAll() {
+    while(list.firstChild){
+        list.removeChild(list.lastChild);
+    }   
+
+    array = [];
+    saveLS(array);
 }
