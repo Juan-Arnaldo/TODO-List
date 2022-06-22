@@ -20,13 +20,19 @@ document.addEventListener('DOMContentLoaded', e => {
 newTask.addEventListener('keypress', e => {
     const text = newTask.value;
 
-    if(e.key === 'Enter'){
-        e.preventDefault();
-        newTask.value = ''
+    if(validation(text) === true){
 
-        newObj(text);
-        saveLS(array);
+    }else{
+        if(e.key === 'Enter'){
+            e.preventDefault();
+            newTask.value = ''
+    
+            newObj(text);
+            saveLS(array);
+        }
     }
+
+
 })
 
 //Event for Pending
@@ -234,4 +240,12 @@ function removeAll() {
 
     array = [];
     saveLS(array);
+}
+
+function validation(text) {
+    if(text.trim() === ''){
+        return true
+    }else{
+        return false
+    }
 }
